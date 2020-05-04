@@ -1,0 +1,16 @@
+{
+  "id": "1775036",
+  "name": "book",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "12274426",
+      "name": "正确",
+      "font_class": "bianzu",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href='./css/book.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #main{
+                width: 80%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                background:black;
+                z-index: -1;
+            }
+        #menu{
+            margin-top: 80px;
+            display: flex;
+            justify-content: space-evenly;
+            
+        }
+        #menu .menuItem{width: 120px; height: 60px;border-radius: 10px;box-shadow:   0 2px 5px  rgb(26,152,80),2px 0 5px  rgb(8,104,172),0 -2px 5px   rgb(244,109,67)  ;
+                        animation: menuItemColor 2s infinite linear alternate;background-color:rgb(26,26,26);position: relative;overflow: hidden;}
+        #menu .menuTextUp{display: block;width: 100%;height: 60px;box-shadow: inset 0 0 1px 1px rgb(77,77,77);border-radius: 10px;color: white;text-align: center;line-height: 60px;
+                  font-weight:lighter;font-size: large;user-select: none;position: absolute;left: 0;transition: cubic-bezier(.3,1.64,.83,.67) 1s;}   
+        #menu .menuTextDown{display: block;width: 100%;height: 60px;box-shadow: inset 0 0 1px 1px rgb(77,77,77);border-radius: 10px;color: black;text-align: center;line-height: 60px;
+            font-weight:lighter;font-size: large;user-select: none;background-color: beige;position: absolute;right :120px;transition: cubic-bezier(.3,1.64,.83,.67) 1s;} 
+        @keyframes menuItemColor{
+            100%{box-shadow:   0 2px 20px rgb(26,152,80),2px 0 20px  rgb(8,104,172),0 -2px 20px   rgb(244,109,67);}
+            0%{}
+        }
+        #menu .menuItem:hover .menuTextUp{animation: menuleft 1s cubic-bezier(.3,1.64,.83,.67);}
+        #menu .menuItem:hover .menuTextDown{animation: menuright 1s cubic-bezier(.3,1.64,.83,.67);}
+        #menu .menuItemActive{display: block;width: 100%;height: 60px;box-shadow: inset 0 0 1px 1px rgb(77,77,77);border-radius: 10px;color: black;text-align: center;line-height: 60px;
+            font-weight:lighter;font-size: large;user-select: none;background-color: beige;position: absolute;right :120px;transition: cubic-bezier(.3,1.64,.83,.67) 1s;}
+        @keyframes menuleft{
+            0%{}
+            50%{left:120px;}
+            100%{}
+        }
+        @keyframes menuright{
+            0%{}
+            50%{right: 0;}
+            100%{}
+        }
+        /* 轮播页面部分 */
+        #content{
+            width: 100%;
+            height:540px;
+            /* background-color: #fff; */
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 20px;
+            list-style: none;
+            overflow: hidden;
+            position: relative;
+            perspective:800px;
+        }
+        #content >li{
+            width: 100%;
+            height: 530px;
+            box-shadow: inset 0 0 30px  rgb(48, 93, 116);
+            /* rgb(21,37,45); */
+            border-radius: 20px;
+            position: absolute;
+            left: 0;
+            transform-style: preserve-3d;
+            visibility: hidden;
+        }
+        #content>li.leftHide{visibility: hidden;animation: leftHide 1s linear 1;}
+        #content >li.rightShow{animation: rightShow 1s linear 1;visibility: visible ;}
+        #content>li.leftShow{visibility: visible;animation: leftShow 1s linear 1;}
+        #content>li.rightHide{animation: rightHide 1s linear 1;visibility:hidden;} 
+        #content>li.active{visibility: visible;} 
+        /* 从左向右点时的动画 */
+        @keyframes leftHide {
+            0%{visibility: visible;}
+            50%{transform: translateX(-40%) rotateY(30deg)scale(.7);}
+            100%{transform: translateZ(-200px);}
+        }
+        @keyframes rightShow {
+            0%{transform: translateZ(-200px);visibility: hidden;}
+            50%{transform: translateX(40%) rotateY(-30deg)scale(.7);}
+            100%{}
+        }
+
+        /* 从右向左点时的动画 */
+        @keyframes leftShow {
+            0%{transform: translateZ(-200px);visibility: visible;}
+            50%{transform: translateX(-40%) rotateY(30deg)scale(.7);}
+            100%{}
+        }
+        @keyframes rightHide {
+            0%{visibility: visible;}
+            50%{transform: translateX(40%) rotateY(-30deg)scale(.7);}
+            100%{transform: translateZ(-200px);}
+        }
+        
+        
+
+        /* 第一屏 */
+        #pictureOut{
+            height: 100%;
+            width: 50%;
+            position: absolute;
+            right: 0;
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            padding: 10px;
+            box-sizing: border-box;
+            align-content: space-evenly;
+            justify-content: space-evenly;
+            
+        }
+        #pictureOut >.pictureItem{
+            width: 40%;
+            height: 40%;
+            box-shadow: inset 0 0 30px  rgb(48, 93, 116);
+            border-radius: 20px;
+            background-color: black;
+            position: relative;
+            display: block;
+        }
+        .pictureItem>div{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            box-shadow: inset 0 0 30px  rgb(48, 93, 116);
+            border-radius: 20px;
+        }
+        .pictureItem>div>div{
+            position: absolute;
+            transform-style: preserve-3d;
+            
+        }
+        #jiejian{position: absolute; right: 0;width: 50%;height: 100%;}
+        #jiejian>div{overflow: hidden;width: 150px;height: 150px;position: absolute;border-radius: 20px;box-shadow: inset 0 0 30px  rgb(48, 93, 116);}
+        #jiejian>div:nth-child(1){top: 20px;left: 0;transform: rotateZ(15deg);}
+        #jiejian>div:nth-child(2){top: 20px;right:40px;transform: rotateZ(15deg);}
+        #jiejian>div:nth-child(5){bottom: 20px;left:40px;transform: rotateZ(30deg);}
+        #jiejian>div:nth-child(3){bottom:20px;right:40px;transform: rotateZ(15deg);}
+        #jiejian>div:nth-child(4){bottom: 0;left: 0;right: 0;top: 0;margin: auto;transform: rotateZ(15deg);}
+        #jiejian>div:hover{animation: jiejian 1s ;}
+        @keyframes jiejian{
+            0%{}
+            50%{transform: rotateZ(45deg) scale(1.2);}
+            100%{}
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <!-- 菜单部分 -->
+        <div id="menu">
+            <div id="test" class="menuItem"><span class="menuTextUp menuItemActive">SCHOOL</span><span class="menuTextDown">SCHOOL</span></div>
+            <div id="menu2" class="menuItem"><span class="menuTextUp">HOBBY</span><span class="menuTextDown">HOBBY</span></div>
+            <div id="menu3" class="menuItem"><span class="menuTextUp">STUDY</span><span class="menuTextDown">STUDY</span></div>
+            <div id="menu4" class="menuItem"><span class="menuTextUp">WORK</span><span class="menuTextDown">WORK</span></div>
+            <div id="menu5" class="menuItem"><span class="menuTextUp">CONTACT</span><span class="menuTextDown">CONTACT</span></div>
+        </div>
+
+        <!-- 轮播页面部分 -->
+        <ul id="content">
+            <li id="contentSchool" class="active">
+
+            <!-- 第一屏 -->
+            <ul id="pictureOut">
+                <li class="pictureItem" id="spring"></li>
+                <li class="pictureItem" id="summer"></li>
+                <li class="pictureItem" id="autumn"></li>
+                <li class="pictureItem" id="winter"></li>
+            </ul>
+            </li>
+            <li id="contentHobby">
+                <div id="jiejian">
+                    <div><img src="./img/jie1.jpg" alt=""></div>
+                    <div><img src="./img/jie2.jpg" alt=""></div>
+                    <div><img src="./img/jie3.jpg" alt=""></div>
+                    <div><img src="./img/jie4.jpg" alt=""></div>
+                    <div><img src="./img/jie5.jpg" alt=""></div>
+                </div>
+            </li>
+            <li id="contentStudy"></li>
+            <li id="contentWork"></li>
+            <li id="contentContact"></li>
+        </ul>
+        <!-- <button id="test">测试</button> -->
+        <div id="book">
+            <div  id="imgContainer">
+                <img src="./img/1.jpg">
+            </div>
+            <div id="homework">
+                
+                <div id="homework1">
+                    <span>请输入您的成绩(0~100)：</span>
+                    <input type="text" id="score" class="inputValue">
+                    <div id="assessScore">
+                        <span></span>
+                    </div>
+                </div>
+
+                <div id="homework2">
+                    <span>请输入您的邮箱：</span>
+                    <input type="text" id="emailInput" class="inputValue">
+                    <svg class="icon" aria-hidden="true" id='testEmail'>
+                    </svg>
+                </div>
+
+                <div id="homework3">
+                    <input type="text" id="number1" class="inputValue">
+                    *
+                    <input type="text" id="number2" class="inputValue"> <span id="showMulti"></span> <span id="clearMulti"></span>
+                    <div id="multiContainer">
+                    </div>
+                </div>
+                <button id="cancleView">退出</button>
+            </div>
+        </div>
+    </div>
+    <script src="./font_1775036_zzn2eznzunl/iconfont.js"></script>
+    <script src="./font_1775067_nqjgksvdmc/iconfont.js"></script>
+    <script src="./js/book.js"></script>
+    <script src="./main.js"></script>
+    <script src="./pictureBoom.js"></script>
+</body>
+</html>

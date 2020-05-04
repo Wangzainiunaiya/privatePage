@@ -1,0 +1,44 @@
+{
+  "id": "1775067",
+  "name": "book",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3941008",
+      "name": "电话",
+      "font_class": "dianhua",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "10041369",
+      "name": "qq ",
+      "font_class": "qq",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "10490657",
+      "name": "网易云",
+      "font_class": "wangyiyun",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "13010182",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "3418610",
+      "name": "错误",
+      "font_class": "cuowu",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    }
+  ]
+}

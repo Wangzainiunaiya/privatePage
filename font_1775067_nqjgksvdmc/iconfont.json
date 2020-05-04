@@ -1,0 +1,16 @@
+{
+  "id": "1775067",
+  "name": "book",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3418610",
+      "name": "错误",
+      "font_class": "cuowu",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    }
+  ]
+}

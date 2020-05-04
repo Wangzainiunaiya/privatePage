@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="cuowu" unicode="&#58900;" d="M512 896c282.8 0 512-229.2 512-512s-229.2-512-512-512S0 101.2 0 384 229.2 896 512 896zM713.6 543.6L554 384l159.6-159.6c4.2-4.2 8.4-12.6 8.4-21 0-16.8-12.6-29.4-29.4-29.4-8.4 0-16.8 4.2-21 8.4L512 342 352.4 182.4c-4.2-4.2-12.6-8.4-21-8.4-16.8 0-29.4 12.6-29.4 29.4 0 8.4 4.2 16.8 8.4 21L470 384 310.4 543.6c-4.2 4.2-8.4 12.6-8.4 21 0 16.8 12.6 29.4 29.4 29.4 8.4 0 16.8-4.2 21-8.4L512 426l159.6 159.6c4.2 4.2 12.6 8.4 21 8.4 16.8 0 29.4-12.6 29.4-29.4 0-8.4-4.2-16.8-8.4-21z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>

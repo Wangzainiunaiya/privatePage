@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href='./css/book.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    
+</head>
+<body><!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            #canvas1{
+                background-color: black;
+                opacity: 1;
+            }
+            #canvas2{
+                background-color: black;
+            }
+            @keyframes remove{
+                0%{opacity: 1;}
+                100%{opacity: 0;}
+            }
+            html,body{
+                overflow: hidden;
+                perspective: 800px;
+                transform-style: preserve-3d;
+            }
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            .canvas3{
+                position: relative;
+                opacity: 1;
+                z-index: -2;
+                background: black;
+            }
+            /* 开始发光加载器 */
+            #start{
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                margin: auto;
+                width: 200px;
+                height: 200px;
+                box-sizing: border-box;
+               }
+            /* 开始文本 */
+            #startText{
+                position: absolute;
+                z-index: 1;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                margin: auto;
+                width: 100px;
+                height: 100px;
+                line-height: 80px;
+                font-size: 40px;
+                text-align: center;
+                cursor: pointer;
+                background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#9198e5), to(red));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                user-select: none;
+                
+            }
+            #startText:hover+ div::after{
+                background-color: red;
+            }
+           
+            #startText:hover{
+              animation: startText 2s linear infinite;
+              transition: transform 1s;
+              background-color: white;
+            }
+            @keyframes startText{
+                50%{
+                    transform: scale(1.6);
+                }
+                
+            }
+
+
+            /* 文字效果 */
+            #text{
+                height: 100%;
+                width: 100%;
+            }
+
+            /* 刚开始时的遮盖层*/
+            #startCover{
+                display: none;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                perspective: 2000px;
+                /* background-color: #fff; */
+            }
+            #startCoverLeft{
+                position: absolute;
+                top: 0;
+                right: 50%;
+                bottom: 0;
+                left: 0;
+                background-color: red;
+                transform-style: preserve-3d;
+                transform: rotateY(120deg);
+                transform-origin: left;
+                overflow: hidden;
+            }
+            #startCoverRight{
+                position: absolute;
+                left: 50%;
+                right: 0;
+                bottom: 0;
+                top: 0;
+                background-color: blue;
+                transform-style: preserve-3d;
+                transform: rotateY(-120deg);
+                transform-origin: right;
+                overflow: hidden;
+            }
+            #startCoverLeft img{
+                position: absolute;
+                left: -50px;
+            }
+            @keyframes coverRightShow{
+                0%{}
+                100%{transform: rotateY(0deg);}
+            }
+            @keyframes coverLeftShow{
+                0%{}
+                100%{transform: rotateY(0deg);}
+            }
+            @keyframes coverRightHide{
+                0%{transform: rotateY(0deg);}
+                100%{transform: rotateY(-120deg);}
+            }
+            @keyframes coverLeftHide{
+                0%{transform: rotateY(0deg);}
+                100%{transform: rotateY(120deg);}
+            }
+
+            /* 主页面 */
+            #main{
+                width: 80%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                background:black;
+                opacity: 0.9;
+                z-index: -1;
+                display: none;
+            }
+            #menu{
+            margin-top: 80px;
+            display: flex;
+            justify-content: space-evenly;
+            
+        }
+        #menu .menuItem{width: 120px; height: 60px;border-radius: 10px;box-shadow:   0 2px 5px  rgb(26,152,80),2px 0 5px  rgb(8,104,172),0 -2px 5px   rgb(244,109,67)  ;
+                        animation: menuItemColor 2s infinite linear alternate;background-color:rgb(26,26,26);position: relative;overflow: hidden;}
+        #menu .menuTextUp{display: block;width: 100%;height: 60px;box-shadow: inset 0 0 1px 1px rgb(77,77,77);border-radius: 10px;color: white;text-align: center;line-height: 60px;
+                  font-weight:lighter;font-size: large;user-select: none;position: absolute;left: 0;transition: cubic-bezier(.3,1.64,.83,.67) 1s;}   
+        #menu .menuTextDown{display: block;width: 100%;height: 60px;box-shadow: inset 0 0 1px 1px rgb(77,77,77);border-radius: 10px;color: black;text-align: center;line-height: 60px;
+            font-weight:lighter;font-size: large;user-select: none;background-color: beige;position: absolute;right :120px;transition: cubic-bezier(.3,1.64,.83,.67) 1s;} 
+        @keyframes menuItemColor{
+            100%{box-shadow:   0 2px 20px rgb(26,152,80),2px 0 20px  rgb(8,104,172),0 -2px 20px   rgb(244,109,67);}
+            0%{}
+        }
+
+        #main{
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background:black;
+    z-index: -1;
+}
+    #menu{
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-evenly;
+
+    }
+    #menu .menuItem{width: 120px; height: 60px;border-radius: 10px;box-shadow:   0 2px 5px  rgb(26,152,80),2px 0 5px  rgb(8,104,172),0 -2px 5px   rgb(244,109,67)  ;
+                animation: menuItemColor 2s infinite linear alternate;background-color:rgb(26,26,26);position: relative;overflow: hidden;cursor: pointer;}
+    #menu .menuTextUp{display: block;width: 100%;height: 60px;box-shadow: inset 0 0 1px 1px rgb(77,77,77);border-radius: 10px;color: white;text-align: center;line-height: 60px;
+        font-weight:lighter;font-size: large;user-select: none;position: absolute;left: 0;transition: cubic-bezier(.3,1.64,.83,.67) 1s;}   
+    #menu .menuTextDown{display: block;width: 100%;height: 60px;box-shadow: inset 0 0 1px 1px rgb(77,77,77);border-radius: 10px;color: black;text-align: center;line-height: 60px;
+    font-weight:lighter;font-size: large;user-select: none;background-color: beige;position: absolute;right :120px;transition: cubic-bezier(.3,1.64,.83,.67) 1s;} 
+    @keyframes menuItemColor{
+    100%{box-shadow:   0 2px 20px rgb(26,152,80),2px 0 20px  rgb(8,104,172),0 -2px 20px   rgb(244,109,67);}
+    0%{}
+    }
+    #menu .menuItem:hover .menuTextUp{animation: menuleft 1s cubic-bezier(.3,1.64,.83,.67);}
+    #menu .menuItem:hover .menuTextDown{animation: menuright 1s cubic-bezier(.3,1.64,.83,.67);}
+    #menu .menuItemActive{display: block;width: 100%;height: 60px;box-shadow: inset 0 0 1px 1px rgb(77,77,77);border-radius: 10px;color: black;text-align: center;line-height: 60px;
+    font-weight:lighter;font-size: large;user-select: none;background-color: beige;position: absolute;right :120px;transition: cubic-bezier(.3,1.64,.83,.67) 1s;}
+    @keyframes menuleft{
+    0%{}
+    50%{left:120px;}
+    100%{}
+    }
+    @keyframes menuright{
+    0%{}
+    50%{right: 0;}
+    100%{}
+    }
+    /* 轮播页面部分 */
+    #content{
+    width: 100%;
+    height:540px;
+    /* background-color: #fff; */
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: 20px;
+    list-style: none;
+    overflow: hidden;
+    position: relative;
+    perspective:800px;
+    }
+    #content>li{
+    width: 100%;
+    height: 530px;
+    box-shadow: inset 0 0 30px  rgb(48, 93, 116);
+    /* rgb(21,37,45); */
+    border-radius: 20px;
+    position: absolute;
+    left: 0;
+    transform-style: preserve-3d;
+    visibility: hidden;
+    }
+    #content>li.leftHide{visibility: hidden;animation: leftHide 1s linear 1;}
+    #content >li.rightShow{animation: rightShow 1s linear 1;visibility: visible ;}
+    #content>li.leftShow{visibility: visible;animation: leftShow 1s linear 1;}
+    #content>li.rightHide{animation: rightHide 1s linear 1;visibility:hidden;} 
+    #content>li.active{visibility: visible;} 
+    /* 从左向右点时的动画 */
+    @keyframes leftHide {
+    0%{visibility: visible;}
+    50%{transform: translateX(-40%) rotateY(30deg)scale(.7);}
+    100%{transform: translateZ(-200px);}
+    }
+    @keyframes rightShow {
+    0%{transform: translateZ(-200px);visibility: hidden;}
+    50%{transform: translateX(40%) rotateY(-30deg)scale(.7);}
+    100%{}
+    }
+
+    /* 从右向左点时的动画 */
+    @keyframes leftShow {
+    0%{transform: translateZ(-200px);visibility: visible;}
+    50%{transform: translateX(-40%) rotateY(30deg)scale(.7);}
+    100%{}
+    }
+    @keyframes rightHide {
+0%{visibility: visible;}
+50%{transform: translateX(40%) rotateY(-30deg)scale(.7);}
+100%{transform: translateZ(-200px);}
+    }
+        #pictureOut{
+            height: 100%;
+            width: 50%;
+            position: absolute;
+            right: 0;
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            padding: 10px;
+            box-sizing: border-box;
+            align-content: space-evenly;
+            justify-content: space-evenly;
+            
+        }
+        #pictureOut >.pictureItem{
+            width: 40%;
+            height: 40%;
+            box-shadow: inset 0 0 30px  rgb(48, 93, 116);
+            border-radius: 20px;
+            background-color: black;
+            position: relative;
+            display: block;
+        }
+        .pictureItem>div{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            box-shadow: inset 0 0 30px  rgb(48, 93, 116);
+            border-radius: 20px;
+        }
+        .pictureItem>div>div{
+            position: absolute;
+            transform-style: preserve-3d;
+            
+        }
+        /* 第四屏 */
+   
+        #contentContact{ font-family: 'Gloria Hallelujah', cursive;color: white;font-size: 20px;user-select: none;display: flex;}
+        .fourPageIcon{font-size: 40px;}
+        #contactShow{height:100%;width: 50%;}
+        #contactShow>div{width: 100%;height: 25%;box-sizing: border-box;padding: 20px; box-shadow: inset 0 0 30px  rgb(48, 93, 116);}
+        #workContainer{width: 460px;height: 500px;box-sizing: border-box;padding-left: 50px;margin-top: 20px;cursor: pointer;}
+        #workContainer>img{box-shadow: inset 0 0 30px  rgb(48, 93, 116);border-radius: 20px;}
+        #contactShow>div:last-child{border-bottom-right-radius:20px;border-bottom-left-radius: 20px;}
+        #contactShow>div:first-child{border-top-right-radius:20px;border-top-left-radius: 20px;}
+
+        /* 第一屏文字 */
+        .contentText{font-family: 'Zhi Mang Xing', cursive;font-size: 30px;color: white;width: 540px;box-sizing: border-box;
+                    height: 80%;    position: absolute;padding: 50px;line-height: 70px;user-select: none;}
+        #schoolText::before{content: '本';font-size: 60px;font-family: 'Zhi Mang Xing', cursive;}
+
+        /* 第二屏文字 */
+        #hobbyText::before{content: '对';font-size: 60px;font-family: 'Zhi Mang Xing', cursive;}
+
+        /* 第四屏文字 */
+        #characterText::before{content: '人';font-size: 60px;font-family: 'Zhi Mang Xing', cursive;}
+
+        /* 第三屏文字 */
+        #studyText::before{content:'本';font-size: 60px;font-family: 'Zhi Mang Xing', cursive;}
+        /* 第三屏图片 */
+        #studyImg{position: absolute;border: white;right: 0;width: 50%;height: 100%;box-sizing: border-box;}
+        #studyImg >div{position: absolute;width: 220px;height: 200px;overflow: hidden;perspective: 800px;}
+        #studyImg >div:nth-child(1){top: 20px;left: 0;}
+        #studyImg >div:nth-child(2){top: 20px;right: 50px;}
+        #studyImg >div:nth-child(3){bottom: 40px;left: 50px;}
+        #studyImg >div:nth-child(4){bottom: 40px;right:0;}
+        #studyImg>div>img{border-radius: 20px;box-shadow: inset 0 0 30px  rgb(15, 91, 129);position: absolute;transform-style: preserve-3d;backface-visibility: hidden;}
+        #studyImg>div>div{position: absolute;width: 100%;height: 100%;background-color: white;opacity: 1;box-sizing: border-box;padding: 20px;font-family: 'Ma Shan Zheng',cursive;font-size: 20px;line-height: 1.5;user-select: none;
+            border-radius: 20px;box-shadow: inset 0 0 30px  rgb(15, 91, 129);color:black;font-weight: bolder;transform-style: preserve-3d;transform: rotateY(180deg);backface-visibility: hidden;}
+        @keyframes studyImgHide{
+            0%{transform: rotateY(0);}
+            100%{transform: rotateY(180deg);}
+        }
+        @keyframes studyDivShow{
+            0%{transform: rotateY(180deg);}
+            100%{transform: rotateY(0);}
+        }
+        @keyframes studyImgShow{
+            0%{transform: rotateY(180deg);}
+            100%{transform: rotateY(0);}
+        }
+        @keyframes studyDivHide{
+            0%{transform: rotateY(0deg);}
+            100%{transform: rotateY(180deg);}
+        }
+        /* 第二屏幕图片 */
+        #jiejian{position: absolute; right: 0;width: 50%;height: 100%;}
+        #jiejian>div{overflow: hidden;width: 150px;height: 150px;position: absolute;border-radius: 20px;box-shadow: inset 0 0 30px  rgb(48, 93, 116);}
+        #jiejian>div:nth-child(1){top: 20px;left: 0;transform: rotateZ(15deg);}
+        #jiejian>div:nth-child(2){top: 20px;right:40px;transform: rotateZ(15deg);}
+        #jiejian>div:nth-child(5){bottom: 20px;left:40px;transform: rotateZ(30deg);}
+        #jiejian>div:nth-child(3){bottom:20px;right:40px;transform: rotateZ(15deg);}
+        #jiejian>div:nth-child(4){bottom: 0;left: 0;right: 0;top: 0;margin: auto;transform: rotateZ(15deg);}
+        #jiejian>div:hover{animation: jiejian 1s;}
+        @keyframes jiejian{
+            0%{}
+            50%{transform: rotateZ(45deg) scale(1.2);}
+            100%{}
+        }
+        </style>
+        <link rel="stylesheet" href="./css/loader.css">
+    </head>
+    <body> 
+        <!-- 页面主体部分 -->
+        <div id="main">
+            <!-- 菜单部分 -->
+            <div id="menu">
+                <div id="menu1" class="menuItem"><span class="menuTextUp menuItemActive">SCHOOL</span><span class="menuTextDown">SCHOOL</span></div>
+                <div id="menu2" class="menuItem"><span class="menuTextUp">HOBBY</span><span class="menuTextDown">HOBBY</span></div>
+                <div id="menu3" class="menuItem"><span class="menuTextUp">STUDY</span><span class="menuTextDown">STUDY</span></div>
+                <div id="menu4" class="menuItem"><span class="menuTextUp">CHARACTER</span><span class="menuTextDown">CHARACTER</span></div>
+                <div id="menu5" class="menuItem"><span class="menuTextUp">CONTACT</span><span class="menuTextDown">CONTACT</span></div>
+            </div>
+    
+            <!-- 轮播页面部分 -->
+            <ul id="content">
+                <li id="contentSchool" class="active">
+                <span id="schoolText" class="contentText">科就读于山东科技大学，地理信息科学专业。学校的学风建设良好，但相比较与学习，我偏爱于学校的美景，置身于校园中，仿佛游玩在公园中。四个季节没有一个季节会让你失望。</span>
+                <!-- 第一屏 -->
+                <ul id="pictureOut">
+                    <li class="pictureItem" id="spring"></li>
+                    <li class="pictureItem" id="summer"></li>
+                    <li class="pictureItem" id="autumn"></li>
+                    <li class="pictureItem" id="winter"></li>
+                </ul>
+                </li>
+                <li id="contentHobby">
+                    <p class="contentText" id="hobbyText">于我来说，没有固定的爱好。大多是浅尝辄止，都在半路中。上了大学后，自觉太瘦与太胖都不好，接触了街健，目前还处在街健菜鸡阶段，还是要继续努力的。</p>
+                    <div id="jiejian">
+                        <div><img src="./img/jie1.jpg" alt=""></div>
+                        <div><img src="./img/jie2.jpg" alt=""></div>
+                        <div><img src="./img/jie3.jpg" alt=""></div>
+                        <div><img src="./img/jie4.jpg" alt=""></div>
+                        <div><img src="./img/jie5.jpg" alt=""></div>
+                    </div>
+                </li>
+                <li id="contentStudy">
+                    <p class="contentText" id="studyText">人就读的是地信专业，读到此专业也是偶然。上大学之前从未接触过计算机方面的东西，目前学校的专业课讲解的是地理方面的知识，提升我们的学科素养，自己也自学了前端，也希望能向前端发展。</p>
+                    <div id="studyImg">
+                            <div>
+                                <div class="imgshow">CSS是一门易懂难通的语言，如果好好运用，可以省去很多js代码</div>
+                                <img src="./img/css3.png">
+                                
+                            </div>
+                            <div>
+                                <div class="imgshow">H5的新特性值得我们去学习</div>
+                                <img src="./img/h5.png"></div>
+                            <div>
+                                <div class="imgshow">VUE作为一个渐进式框架，给开发者带来了优美的语法糖，方便快捷的入手。</div>
+                                <img src="./img/vue.png"></div>
+                            <div>
+                                <div class="imgshow">JS是前端的灵魂，避免成为一个API搬运者，原生JS的探索，会让你的技术更上一层楼。</div>
+                                <img src="./img/js.png"></div>
+                    </div>
+                </li>
+                <li id="contentWork">
+                    <p class="contentText" id="characterText">的性格，不管由自己说还是别人说，都是很片面的东西。本人对于不熟的人的时候，话语比较少，对于合得来的人，会敞开心扉，且不善于主动交友。但是想要了解一个人，单凭文字是无法窥见全貌的，人与人之间的接触才是最好的粘合剂。</p>
+                </li>
+                <li id="contentContact">
+                    <!-- 联系方式 -->
+                    <div id="contactShow">
+                        <div id="qq">
+                      <svg class="icon fourPageIcon" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                      </svg>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <span>1429030586</span>
+                    </div>
+                   <div id="weixin">
+                    <svg class="icon fourPageIcon" aria-hidden="true">
+                        <use xlink:href="#icon-weixin"></use>
+                      </svg>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <span>swc17860825072</span>
+                   </div>
+                   <div id="phone">
+                    <svg class="icon fourPageIcon" aria-hidden="true">
+                        <use xlink:href="#icon-dianhua"></use>
+                      </svg>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <span>17860825072</span>
+                   </div>
+                   <div id="wangyi">
+                    <svg class="icon fourPageIcon" aria-hidden="true">
+                        <use xlink:href="#icon-wangyiyun"></use>
+                      </svg>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <span>小波爱银河</span>
+                   </div>
+                    </div>
+                    <div id="workContainer">
+                        <img src="./img/1.jpg" id="test">
+                    </div>
+                </li>
+            </ul>
+            <!-- <button id="test">测试</button> -->
+            <div id="book">
+                <div  id="imgContainer">
+                    <img src="./img/1.jpg">
+                </div>
+                <div id="homework">
+                    
+                    <div id="homework1">
+                        <span>请输入您的成绩(0~100)：</span>
+                        <input type="text" id="score" class="inputValue">
+                        <div id="assessScore">
+                            <span></span>
+                        </div>
+                    </div>
+    
+                    <div id="homework2">
+                        <span>请输入您的邮箱：</span>
+                        <input type="text" id="emailInput" class="inputValue">
+                        <svg class="icon" aria-hidden="true" id='testEmail'>
+                        </svg>
+                    </div>
+    
+                    <div id="homework3">
+                        <input type="text" id="number1" class="inputValue">
+                        *
+                        <input type="text" id="number2" class="inputValue"> <span id="showMulti"></span> <span id="clearMulti"></span>
+                        <div id="multiContainer">
+                        </div>
+                    </div>
+                    <div id="cancleView">退出</div>
+                </div>
+            </div>
+        </div>
+        <!-- 小球 -->
+        <canvas id='canvas1'></canvas>
+        <!-- 开始按钮 -->
+        <div id="startText">Start</div>
+        <!-- 加载器 -->
+        <div class="loader" id="start"></div>
+        <!-- 遮盖层 -->
+        <div id="startCover">
+             <div id="startCoverRight"><img src="./img/doorright.jpg" alt=""></div>
+            <div id="startCoverLeft"><img src="./img/doorleft.jpg" alt=""></div>
+        </div>
+       
+    </body>
+    <script src="./js/ball.js"></script> 
+    <script src="./js/click.js"></script>
+    <script src="./js/cover.js"></script>
+    <script src="./font_1775036_zzn2eznzunl/iconfont.js"></script>
+    <script src="./font_1775067_nqjgksvdmc/iconfont.js"></script>
+    <script src="./font_1775067_1is4djn2jdx/iconfont.js"></script>
+    <script src="./js/book.js"></script>
+    <script src="main.js"></script>
+    <script src="./js/pictureBoom.js"></script>
+    <script src="./js/imgRotate.js"></script>
+</html>
